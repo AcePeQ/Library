@@ -1,6 +1,5 @@
 const libraryStorage = document.querySelector(".library_storage");
-
-console.log(libraryStorage);
+let deleteButtons;
 
 const myLibrary = [];
 
@@ -17,15 +16,26 @@ function Book(title, author, pages, isRead) {
   };
 }
 
+function handleDelete(e) {
+  const parentNode = e.target.parentNode.parentNode;
+  const bookID = Number(parentNode.getAttribute("id"));
+  const book = myLibrary.find((_, index) => index === bookID);
+
+  myLibrary.splice(bookID, 1);
+  displayBooksInLibrary(myLibrary);
+}
+
 function displayBooksInLibrary(library) {
-  console.log(library);
+  libraryStorage.innerHTML = "";
+
   for (let i = 0; i < library.length; i++) {
     const book = library[i];
+
     libraryStorage.insertAdjacentHTML(
       "beforeend",
       `
       <div class="book_container">
-            <div class="book">
+            <div class="book" id=${i}>
               <p class="book_name">${book.title}</p>
               <p class="book_author">${book.author}</p>
               <p class="book_pages">${book.pages} pages</p>
@@ -43,6 +53,11 @@ function displayBooksInLibrary(library) {
       `
     );
   }
+
+  deleteButtons = [...document.querySelectorAll(".button-delete")];
+  deleteButtons.forEach((button) =>
+    button.addEventListener("click", handleDelete)
+  );
 }
 
 function addBookToLibrary(title, author, pages, isRead) {
@@ -52,6 +67,8 @@ function addBookToLibrary(title, author, pages, isRead) {
 }
 
 addBookToLibrary("Hobbit", "J.K Rolings", 265, false);
-addBookToLibrary("Hobbit", "J.K Rolings", 265, false);
-
+addBookToLibrary("Hobbit", "J.K Roli", 265, false);
+addBookToLibrary("Hobb", "J.K Roli", 265, false);
+addBookToLibrary("Hoit", "J.K Roli", 265, false);
+addBookToLibrary("Hbbit", "J.K Roli", 265, false);
 displayBooksInLibrary(myLibrary);
