@@ -18,6 +18,70 @@
         <button class="button button-add">Add book</button>
       </footer>
     </section>
+
+    <div class="modal_wrapper">
+      <div class="modal_overlay"></div>
+      <div class="modal">
+        <h2 class="modal_title">Add Book</h2>
+        <form id="book-form" class="modal_form">
+          <div class="modal_row">
+            <label for="title" class="modal_label">Title</label>
+            <input
+              id="title"
+              name="title"
+              required
+              type="text"
+              class="modal_input"
+            />
+          </div>
+
+          <div class="modal_row">
+            <label for="author" class="modal_label">Author</label>
+            <input
+              id="author"
+              name="author"
+              required
+              type="text"
+              class="modal_input"
+            />
+          </div>
+
+          <div class="modal_row">
+            <label for="pages" class="modal_label">Pages</label>
+            <input
+              id="pages"
+              name="pages"
+              required
+              type="text"
+              class="modal_input"
+            />
+          </div>
+
+          <div class="modal_row row-checkbox">
+            <label for="isRead" class="modal_label">Already read?</label>
+            <input
+              type="checkbox"
+              name="isRead"
+              id="isRead"
+              class="modal_checkbox"
+            />
+          </div>
+
+          <div class="modal_buttons">
+            <button type="submit" id="button-addBook" class="button button-add">
+              Add book
+            </button>
+            <button
+              type="button"
+              id="button-closeBook"
+              class="button button-add"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
     <script src="script.js"></script>
   </body>
 </html>

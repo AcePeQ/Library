@@ -1,5 +1,12 @@
 const libraryStorage = document.querySelector(".library_storage");
+const modalWrapper = document.querySelector(".modal_wrapper");
+const modalOverlay = document.querySelector(".modal_overlay");
+const closeModalBtn = document.querySelector("#button-closeBook");
+const addBookBtn = document.querySelector(".button-add");
+const form = document.querySelector("#book-form");
+
 let deleteButtons;
+let statusButtons;
 
 const myLibrary = [];
 
@@ -16,14 +23,44 @@ function Book(title, author, pages, isRead) {
   };
 }
 
+function handleOpenModal() {
+  modalWrapper.classList.add("active");
+}
+
+function handleCloseModal() {
+  modalWrapper.classList.remove("active");
+}
+
+addBookBtn.addEventListener("click", handleOpenModal);
+modalOverlay.addEventListener("click", handleCloseModal);
+closeModalBtn.addEventListener("click", handleCloseModal);
+
 function handleDelete(e) {
   const parentNode = e.target.parentNode.parentNode;
   const bookID = Number(parentNode.getAttribute("id"));
-  const book = myLibrary.find((_, index) => index === bookID);
 
   myLibrary.splice(bookID, 1);
   displayBooksInLibrary(myLibrary);
 }
+
+function toggleStatus(e) {
+  const parentNode = e.target.parentNode.parentNode;
+  const bookID = Number(parentNode.getAttribute("id"));
+  const book = myLibrary.find((_, index) => index === bookID);
+
+  book.isRead = !book.isRead;
+  displayBooksInLibrary(myLibrary);
+}
+
+function formNewBook() {
+  const formData = new FormData(form);
+  console.log(formData);
+}
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  formNewBook();
+});
 
 function displayBooksInLibrary(library) {
   libraryStorage.innerHTML = "";
@@ -55,8 +92,14 @@ function displayBooksInLibrary(library) {
   }
 
   deleteButtons = [...document.querySelectorAll(".button-delete")];
+  statusButtons = [...document.querySelectorAll(".button-status")];
+
   deleteButtons.forEach((button) =>
     button.addEventListener("click", handleDelete)
+  );
+
+  statusButtons.forEach((button) =>
+    button.addEventListener("click", toggleStatus)
   );
 }
 
