@@ -54,7 +54,13 @@ function toggleStatus(e) {
 
 function formNewBook() {
   const formData = new FormData(form);
-  console.log(formData);
+
+  const title = formData.get("title");
+  const author = formData.get("author");
+  const pages = formData.get("pages");
+  const isRead = formData.get("isRead") === "on";
+
+  addBookToLibrary(title, author, pages, isRead);
 }
 
 form.addEventListener("submit", (e) => {
@@ -106,12 +112,8 @@ function displayBooksInLibrary(library) {
 function addBookToLibrary(title, author, pages, isRead) {
   const newBook = new Book(title, author, pages, isRead);
 
-  myLibrary.push(newBook);
+  myLibrary.unshift(newBook);
+  displayBooksInLibrary(myLibrary);
 }
 
-addBookToLibrary("Hobbit", "J.K Rolings", 265, false);
-addBookToLibrary("Hobbit", "J.K Roli", 265, false);
-addBookToLibrary("Hobb", "J.K Roli", 265, false);
-addBookToLibrary("Hoit", "J.K Roli", 265, false);
-addBookToLibrary("Hbbit", "J.K Roli", 265, false);
 displayBooksInLibrary(myLibrary);
