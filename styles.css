@@ -273,6 +273,14 @@ body {
   transform: scale(1);
 }
 
+.modal_numbers::-webkit-outer-spin-button,
+.modal_numbers::-webkit-inner-spin-button {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+  margin: 0;
+}
+
 .modal_buttons {
   display: flex;
   justify-content: space-between;

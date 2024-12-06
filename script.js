@@ -4,6 +4,7 @@ const modalOverlay = document.querySelector(".modal_overlay");
 const closeModalBtn = document.querySelector("#button-closeBook");
 const addBookBtn = document.querySelector(".button-add");
 const form = document.querySelector("#book-form");
+const inputPages = document.querySelector("#pages");
 
 let deleteButtons;
 let statusButtons;
