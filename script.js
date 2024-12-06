@@ -23,6 +23,11 @@ function Book(title, author, pages, isRead) {
   };
 }
 
+Book.prototype.toggleStatus = function (e) {
+  this.isRead = !this.isRead;
+  displayBooksInLibrary(myLibrary);
+};
+
 function handleOpenModal() {
   modalWrapper.classList.add("active");
 }
@@ -43,14 +48,14 @@ function handleDelete(e) {
   displayBooksInLibrary(myLibrary);
 }
 
-function toggleStatus(e) {
-  const parentNode = e.target.parentNode.parentNode;
-  const bookID = Number(parentNode.getAttribute("id"));
-  const book = myLibrary.find((_, index) => index === bookID);
+// function toggleStatus(e) {
+//   const parentNode = e.target.parentNode.parentNode;
+//   const bookID = Number(parentNode.getAttribute("id"));
+//   const book = myLibrary.find((_, index) => index === bookID);
 
-  book.isRead = !book.isRead;
-  displayBooksInLibrary(myLibrary);
-}
+//   book.isRead = !book.isRead;
+//   displayBooksInLibrary(myLibrary);
+// }
 
 function formNewBook() {
   const formData = new FormData(form);
@@ -95,6 +100,11 @@ function displayBooksInLibrary(library) {
           </div>
       `
     );
+
+    const statusBook = libraryStorage.querySelector(
+      `.book[id="${i}"] .button-status`
+    );
+    statusBook.addEventListener("click", book.toggleStatus.bind(book));
   }
 
   deleteButtons = [...document.querySelectorAll(".button-delete")];
@@ -104,9 +114,9 @@ function displayBooksInLibrary(library) {
     button.addEventListener("click", handleDelete)
   );
 
-  statusButtons.forEach((button) =>
-    button.addEventListener("click", toggleStatus)
-  );
+  // statusButtons.forEach((button) =>
+  //   button.addEventListener("click", book.toggleStatus.bind(book))
+  // );
 }
 
 function addBookToLibrary(title, author, pages, isRead) {
@@ -115,5 +125,7 @@ function addBookToLibrary(title, author, pages, isRead) {
   myLibrary.unshift(newBook);
   displayBooksInLibrary(myLibrary);
 }
+
+addBookToLibrary("Hobbit", "JK", 254, true);
 
 displayBooksInLibrary(myLibrary);
